@@ -2,6 +2,43 @@
 
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import {
+  SiGmail,
+  SiTelegram,
+  SiWhatsapp,
+} from "@icons-pack/react-simple-icons";
+
+interface SocialLink {
+  label: string;
+  title: string;
+  description: string;
+  href: string;
+  Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+}
+
+const socials: SocialLink[] = [
+  {
+    label: "Telegram",
+    title: "Telegram",
+    description: "Chat via Telegram",
+    href: "https://t.me/username",
+    Icon: SiTelegram,
+  },
+  {
+    label: "Whatsapp",
+    title: "Whatsapp",
+    description: "Fast response via WhatsApp",
+    href: "https://wa.me/6281234567890",
+    Icon: SiWhatsapp,
+  },
+  {
+    label: "Email",
+    title: "Email",
+    description: "Send me an email",
+    href: "mailto:saynaufal55@gmail.com",
+    Icon: SiGmail,
+  },
+];
 
 interface FormData {
   name: string;
@@ -18,16 +55,16 @@ const Contact = () => {
     message: "",
   });
 
-const handleChange = (
-  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-) => {
-  const { name, value } = e.target;
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = e.target;
 
-  setForm((prev) => ({
-    ...prev,
-    [name]: value,
-  }));
-};
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,7 +84,7 @@ const handleChange = (
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 place-items-center gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 place-items-center gap-4">
           {/* card 1 */}
           <form
             onSubmit={handleSubmit}
@@ -57,11 +94,11 @@ const handleChange = (
               "shadow-2xl shadow-black/40",
             )}
           >
-            <div className="flex flex-col mb-8">
+            <div className="flex flex-col mb-8 gap-2">
               <h2 className="text-3xl font-semibold tracking-tight">
                 Get In Touch
               </h2>
-              <p className="font-normal">
+              <p className="font-normal leading-tight">
                 Send message to us by filling these fields
               </p>
             </div>
@@ -123,13 +160,45 @@ const handleChange = (
           {/* card 2 */}
           <div
             className={cn(
-              "group relative overflow-hidden rounded-[28px] bg-neutral-900",
-              "w-full aspect-3/4",
-              "shadow-2xl shadow-black/40",
+              "group relative overflow-hidden rounded-[28px] bg-neutral-900 text-white",
+              "w-full p-6",
+              "shadow-2xl shadow-black/40 md:h-full",
             )}
           >
-            {/* ── Gradient overlay ── */}
-            <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/5 to-black/20" />
+            <div className="flex flex-col mb-8 gap-2">
+              <h2 className="text-3xl font-semibold tracking-tight">
+                Via Platform
+              </h2>
+              <p className="font-normal leading-tight">
+                Choose the platform you&apos;re most comfortable with
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              {socials.map(({ Icon, ...social }) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  aria-label={social.label}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between rounded-2xl border border-neutral-800 bg-neutral-800/40 p-4 transition hover:bg-neutral-800 hover:border-neutral-700"
+                >
+                  <div className="flex items-center gap-3">
+                     <Icon className="w-8 h-8 lg:w-12 lg:h-12" />
+                    <div className="flex flex-col">
+                      <h3 className="font-semibold text-white">
+                        {social.title}
+                      </h3>
+                      <p className="text-xs text-neutral-400">
+                        {social.description}
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-neutral-400">&gt;</span>
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>
