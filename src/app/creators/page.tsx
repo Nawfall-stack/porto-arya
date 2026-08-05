@@ -16,17 +16,17 @@ export default function CreatorsPage() {
 
            <div className="grid grid-cols-1 md:grid-cols-3 place-items-center gap-4">
             <CreatorCard
-                name="Iqbal Ramadhani"
+                name="M Iqbal Ramadhani"
                 role="Full Stack Developer"
                 image="/Iqbal.png"
                 />
             <CreatorCard
-                name="Farhan Syifaul"
+                name="Farhan Syifaul U"
                 role="Front End Developer"
                 image="/Farhan.png"
                 />
             <CreatorCard
-                name="Naufal Irfan"
+                name="M Naufal Irfansyah"
                 role="Front End Developer"
                 image="/Naufal.png"
                 />
