@@ -72,7 +72,7 @@ export default async function ProjectsPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="relative aspect-video md:aspect-3/4 rounded-xl overflow-hidden">
             <img
               src="/home-1.jpg"
@@ -112,7 +112,7 @@ export default async function ProjectsPage() {
           <h3 className="capitalize text-2xl font-medium tracking-tight ">
             tech stack
           </h3>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 items-center">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 items-center">
             {techStacks.map((techStack, index) => (
               <Image
                 src={`/techstack/${techStack}.svg`}
@@ -137,7 +137,7 @@ export default async function ProjectsPage() {
           </div>
           {/* Project Grid */}
           {projects.length > 0 ? (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {projects.slice(0, 2).map((project) => (
                 <ProjectCard
                   key={project.slug}
