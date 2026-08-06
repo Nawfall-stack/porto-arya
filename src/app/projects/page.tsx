@@ -1,0 +1,45 @@
+import Link from "next/link";
+import { getAllProjects } from "@/lib/mdx";
+import ProjectCard from "@/components/ui/ProjectCard";
+
+export default async function ProjectsPage() {
+  const projects = await getAllProjects();
+
+  return (
+    <main className="min-h-screen py-28">
+      <div className="container mx-auto px-4 flex flex-col gap-12">
+        {/* Page Header */}
+        <div className="mb-16 text-center">
+          <p className="text-sm uppercase tracking-wider text-muted-foreground mb-4">
+            Web Portfolio
+          </p>
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-4">
+            PROJECTS
+          </h1>
+        </div>
+      </div>
+
+      <div className="grid gap-6 px-4">
+        {projects.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {projects.map((project) => (
+              <ProjectCard
+                key={project.slug}
+                title={project.frontmatter.title}
+                description={project.frontmatter.description}
+                category={project.frontmatter.category}
+                thumbnail={project.frontmatter.thumbnail}
+                slug={project.slug}
+                stack={project.frontmatter.stack}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-20">
+            <p className="text-muted-foreground text-lg">No projects found.</p>
+          </div>
+        )}
+      </div>
+    </main>
+  );
+}
