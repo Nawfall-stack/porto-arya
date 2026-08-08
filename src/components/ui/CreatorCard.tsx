@@ -19,11 +19,11 @@ interface CreatorCardProps {
 
 // ── Social Icons ──────────────────────────────────────────────────
 const GithubIcon = () => (
-  <SiGithub className='lg:w-12 lg:h-12 md:w-6 md:w-6 w-8 h-8'/>
+  <SiGithub className='lg:w-12 lg:h-12 md:w-6 w-8 h-8'/>
 );
 
 const InstagramIcon = () => (
-  <SiInstagram className='lg:w-12 lg:h-12 md:w-6 md:w-6  w-8 h-8'/>
+  <SiInstagram className='lg:w-12 lg:h-12 md:w-6  w-8 h-8'/>
 );
 
 // const LinkedinIcon = () => (
@@ -33,7 +33,7 @@ const InstagramIcon = () => (
 // );
 
 const GlobeIcon = () => (
-  <Globe className='lg:w-12 lg:h-12 md:w-6 md:w-6 w-8 h-8'/>
+  <Globe className='lg:w-12 lg:h-12 md:w-6 w-8 h-8'/>
 );
 
 // ── Default socials ───────────────────────────────────────────────
@@ -56,7 +56,7 @@ export default function CreatorCard({
     <div
       className={cn(
         'group relative overflow-hidden rounded-[28px] bg-neutral-900',
-        'w-full aspect-[3/4]',
+        'w-full aspect-3/4',
         'shadow-2xl shadow-black/40',
         className
       )}
@@ -71,7 +71,7 @@ export default function CreatorCard({
       />
 
       {/* ── Gradient overlay ── */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/5 to-black/20" />
+      <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/5 to-black/20" />
 
       {/* ── Top-left: Logo AT. ── */}
       <div className="absolute top-6 left-6 z-10">
