@@ -4,6 +4,9 @@ import Link from "next/link";
 import { ArrowLeft, Calendar, Tag } from "lucide-react";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getProjectBySlug, getProjectSlugs } from "@/lib/mdx";
+import ProjectInfoModal from "@/components/ui/ProjectInfoModal";
+
+
 
 export async function generateStaticParams() {
   const slugs = getProjectSlugs();
@@ -56,7 +59,7 @@ export default async function ProjectDetailPage({
         <p className="max-w-5xl hidden md:block text-2xl tracking-tighter">{frontmatter.description}</p>
 
         <div className="tracking-tight py-2 px-4 bg-accent text-foreground rounded-lg">
-          Project Info
+          <ProjectInfoModal project={frontmatter} />
         </div>
       </div>
 
