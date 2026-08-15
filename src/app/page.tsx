@@ -83,7 +83,7 @@ export default async function ProjectsPage() {
                   width={24}
                   height={24}
                   className="aspect-square rounded-full object-cover"
-                  preload={true}
+                  loading="eager"
                 />
 
                 <p className="text-lg font-normal tracking-tight">
@@ -107,6 +107,7 @@ export default async function ProjectsPage() {
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-cover"
+                preload={true}
               />
 
               <div className="absolute inset-0 bg-black/40" />
