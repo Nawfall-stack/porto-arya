@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { getAllProjects } from "@/lib/mdx";
 import ProjectCard from "@/components/ui/ProjectCard";
 
@@ -26,11 +25,8 @@ export default async function ProjectsPage() {
               <ProjectCard
                 key={project.slug}
                 title={project.frontmatter.title}
-                description={project.frontmatter.description}
                 category={project.frontmatter.category}
-                thumbnail={project.frontmatter.thumbnail}
                 slug={project.slug}
-                stack={project.frontmatter.stack}
               />
             ))}
           </div>
