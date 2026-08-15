@@ -131,7 +131,7 @@ export default async function ProjectsPage() {
             <h3 className="capitalize text-2xl font-medium tracking-tight ">
               Projects
             </h3>
-            <Link href="/project" className=" capitalize">
+            <Link href="/projects" className=" capitalize">
               see all
             </Link>
           </div>
