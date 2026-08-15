@@ -75,7 +75,7 @@ export default function CreatorCard({
 
       {/* ── Top-left: Logo AT. ── */}
       <div className="absolute top-6 left-6 z-10">
-        <img src="/AT-w.webp" alt="" className='w-16 md:w-12 lg:w-16' />
+        <Image src="/AT-w.webp" alt="logo AT" height={1000} width={1000} loading='eager' className='w-16 md:w-12 lg:w-16' />
       </div>
 
       {/* ── Top-right: Social icons ── */}
