@@ -1,6 +1,5 @@
 import { getAllProjects } from "@/lib/mdx";
 import ProjectCard from "@/components/ui/ProjectCard";
-import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,6 +7,36 @@ export const metadata = {
   title: "Projects - Arya Team",
   description: "Explore all projects by Arya Team",
 };
+
+const teamMembers = [
+  {
+    name: "Iqbal Ramadani",
+    avatar: "/home-1.jpg",
+  },
+  {
+    name: "Farhan Syifaul",
+    avatar: "/home-1.jpg",
+  },
+  {
+    name: "Naufal Irfansyah",
+    avatar: "/home-1.jpg",
+  },
+];
+
+const features = [
+  {
+    title: "Beautifully Designed Component",
+    image: "/home-1.jpg",
+  },
+  {
+    title: "Friendly User Experience",
+    image: "/home-2.jpg",
+  },
+  {
+    title: "SEO Optimization",
+    image: "/home-3.jpg",
+  },
+];
 
 const techStacks = [
   "laravel",
@@ -26,139 +55,125 @@ const techStacks = [
 
 export default async function ProjectsPage() {
   const projects = await getAllProjects();
+  const featuredProjects = projects.slice(0, 2);
 
   return (
-    <div className="min-h-screen py-28">
-      <div className="container mx-auto px-4 flex flex-col gap-12">
-        {/* Page Header */}
-        <div className="text-center flex flex-col gap-8">
+    <main className="min-h-screen py-28">
+      <div className="container mx-auto flex flex-col gap-12 px-4">
+
+        {/* Header */}
+        <header className="flex flex-col gap-8 text-center">
           <p className="text-sm uppercase tracking-wider text-muted-foreground">
             Web Portfolio
           </p>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tighter">
+
+          <h1 className="text-5xl font-bold tracking-tighter md:text-7xl">
             ARYA TEAM
           </h1>
+
           <div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
-            <div className="flex gap-2 justify-center items-center">
-              <img
-                src="/home-1.jpg"
-                alt="avatar-1"
-                className=" aspect-square object-cover rounded-full h-6"
-              />
-              <p className=" capitalize text-lg font-regular tracking-tight">
-                iqbal ramadani
-              </p>
-            </div>
-            <div className="flex gap-2 justify-center items-center">
-              <img
-                src="/home-1.jpg"
-                alt="avatar-1"
-                className=" aspect-square object-cover rounded-full h-6"
-              />
-              <p className=" capitalize text-lg font-regular tracking-tight">
-                farhan syifaul
-              </p>
-            </div>
-            <div className="flex gap-2 justify-center items-center">
-              <img
-                src="/home-1.jpg"
-                alt="avatar-1"
-                className=" aspect-square object-cover rounded-full h-6"
-              />
-              <p className=" capitalize text-lg font-regular tracking-tight">
-                naufal irfansyah
-              </p>
-            </div>
-          </div>
-        </div>
+            {teamMembers.map((member) => (
+              <div
+                key={member.name}
+                className="flex items-center gap-2"
+              >
+                <Image
+                  src={member.avatar}
+                  alt={member.name}
+                  width={24}
+                  height={24}
+                  className="aspect-square rounded-full object-cover"
+                  preload={true}
+                />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="relative aspect-video md:aspect-3/4 rounded-xl overflow-hidden">
-            <img
-              src="/home-1.jpg"
-              alt="image"
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black/40" />
-            <h3 className="capitalize absolute inset-0 flex items-end p-5 text-2xl font-medium tracking-tight text-white">
-              beautifully design component
-            </h3>
+                <p className="text-lg font-normal tracking-tight">
+                  {member.name}
+                </p>
+              </div>
+            ))}
           </div>
-          <div className="relative aspect-video md:aspect-3/4 rounded-xl overflow-hidden">
-            <img
-              src="/home-2.jpg"
-              alt="image"
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black/40" />
-            <h3 className="capitalize absolute inset-0 flex items-end p-5 text-2xl font-medium tracking-tight text-white">
-              friendly user experience
-            </h3>
-          </div>
-          <div className="relative aspect-video md:aspect-3/4 rounded-xl overflow-hidden">
-            <img
-              src="/home-3.jpg"
-              alt="image"
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black/40" />
-            <h3 className="capitalize absolute inset-0 flex items-end p-5 text-2xl font-medium tracking-tight text-white">
-              SEO optimization
-            </h3>
-          </div>
-        </div>
+        </header>
 
-        <div className="flex flex-col gap-8">
-          <h3 className="capitalize text-2xl font-medium tracking-tight ">
-            tech stack
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 items-center">
-            {techStacks.map((techStack, index) => (
+        {/* Features */}
+        <section className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          {features.map((feature) => (
+            <div
+              key={feature.title}
+              className="relative aspect-video overflow-hidden rounded-xl md:aspect-3/4"
+            >
               <Image
+                src={feature.image}
+                alt={feature.title}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover"
+              />
+
+              <div className="absolute inset-0 bg-black/40" />
+
+              <h3 className="absolute inset-0 flex items-end p-5 text-2xl font-medium tracking-tight text-white">
+                {feature.title}
+              </h3>
+            </div>
+          ))}
+        </section>
+
+        {/* Tech Stack */}
+        <section className="flex flex-col gap-8">
+          <h2 className="text-2xl font-medium tracking-tight">
+            Tech Stack
+          </h2>
+
+          <div className="grid grid-cols-2 items-center gap-4 md:grid-cols-3 lg:grid-cols-4">
+            {techStacks.map((techStack) => (
+              <Image
+                key={techStack}
                 src={`/techstack/${techStack}.svg`}
-                key={index}
+                alt={`${techStack} logo`}
                 width={500}
                 height={500}
-                alt="Picture of the author"
-                className="border-2 border-accent/20 border-dashed"
+                className="border-2 border-dashed border-accent/20"
               />
             ))}
           </div>
-        </div>
+        </section>
 
-        <div className="flex flex-col gap-8">
-          <div className="flex justify-between items-center ">
-            <h3 className="capitalize text-2xl font-medium tracking-tight ">
+        {/* Projects */}
+        <section className="flex flex-col gap-8">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-medium tracking-tight">
               Projects
-            </h3>
-            <Link href="/projects" className=" capitalize">
-              see all
+            </h2>
+
+            <Link
+              href="/projects"
+              className="capitalize"
+            >
+              See all
             </Link>
           </div>
-          {/* Project Grid */}
-          {projects.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {projects.slice(0, 2).map((project) => (
+
+          {featuredProjects.length > 0 ? (
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+              {featuredProjects.map((project) => (
                 <ProjectCard
                   key={project.slug}
                   title={project.frontmatter.title}
-                  description={project.frontmatter.description}
                   category={project.frontmatter.category}
-                  thumbnail={project.frontmatter.thumbnail}
                   slug={project.slug}
-                  stack={project.frontmatter.stack}
                 />
               ))}
             </div>
           ) : (
-            <div className="text-center py-20">
-              <p className="text-muted-foreground text-lg">
+            <div className="py-20 text-center">
+              <p className="text-lg text-muted-foreground">
                 No projects found.
               </p>
             </div>
           )}
-        </div>
+        </section>
+
       </div>
-    </div>
+    </main>
   );
 }
