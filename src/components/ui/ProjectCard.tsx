@@ -1,34 +1,27 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { ArrowUpRight } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import Link from "next/link";
+import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface ProjectCardProps {
   title: string;
-  description: string;
   category: string;
-  thumbnail: string;
   slug: string;
-  stack: string[];
   className?: string;
 }
 
 export default function ProjectCard({
   title,
-  description,
   category,
-  thumbnail,
   slug,
-  stack,
   className,
 }: ProjectCardProps) {
   return (
-    <Link href={`/projects/${slug}`} className={cn('group block', className)}>
+    <Link href={`/projects/${slug}`} className={cn("group block", className)}>
       <div className="relative overflow-hidden rounded-2xl aspect-video w-full">
-        
         {/* Thumbnail */}
         <Image
-          src="/cardImg.webp"
+          src= {`/projects/${slug}/thumbnail.webp`}
           alt="image"
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -39,14 +32,13 @@ export default function ProjectCard({
 
         {/* Konten hover — muncul dari bawah */}
         <div className="absolute inset-0 flex flex-col justify-end p-5 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 ease-out">
-          
           {/* Category */}
-          <p className="text-white/60 text-sm font-medium">Web Development</p>
+          <p className="text-white/60 text-sm font-medium">{category}</p>
 
           {/* Title + Arrow row */}
           <div className="flex items-end justify-between">
             <h3 className="text-white font-medium text-2xl leading-tight">
-              Fortik Website
+              {title}
             </h3>
 
             {/* Arrow button pojok kanan bawah */}
@@ -55,11 +47,10 @@ export default function ProjectCard({
             </div>
           </div>
         </div>
-
       </div>
 
-      <div className='mt-4 font-medium text-2xl'>
-        <h1>Fortik Website</h1>
+      <div className="mt-4 font-medium text-2xl">
+        <div className="uppercase">{title}</div>
       </div>
     </Link>
   );

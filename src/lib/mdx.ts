@@ -56,3 +56,27 @@ export async function getAllProjects(): Promise<Project[]> {
       return new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime();
     });
 }
+
+export function getProjectImages(slug: string): string[] {
+  const projectDirectory = path.join(
+    process.cwd(),
+    'public/projects',
+    slug
+  );
+
+  if (!fs.existsSync(projectDirectory)) {
+    return [];
+  }
+
+  return fs
+    .readdirSync(projectDirectory)
+    .filter((file) =>
+      /^image-\d+\.(jpg|jpeg|png|webp|avif|gif)$/i.test(file)
+    )
+    .sort((a, b) => {
+      const numberA = Number(a.match(/\d+/)?.[0] ?? 0);
+      const numberB = Number(b.match(/\d+/)?.[0] ?? 0);
+
+      return numberA - numberB;
+    });
+}
