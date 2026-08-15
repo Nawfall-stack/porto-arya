@@ -24,7 +24,7 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   return (
     <Link href={`/projects/${slug}`} className={cn('group block', className)}>
-      <div className="relative overflow-hidden rounded-2xl aspect-[16/9] w-full">
+      <div className="relative overflow-hidden rounded-2xl aspect-video w-full">
         
         {/* Thumbnail */}
         <Image
