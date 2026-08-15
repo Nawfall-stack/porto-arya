@@ -5,21 +5,15 @@ import { cn } from "@/lib/utils";
 
 interface ProjectCardProps {
   title: string;
-  description: string;
   category: string;
-  thumbnail: string;
   slug: string;
-  stack: string[];
   className?: string;
 }
 
 export default function ProjectCard({
   title,
-  description,
   category,
-  thumbnail,
   slug,
-  stack,
   className,
 }: ProjectCardProps) {
   return (
@@ -27,7 +21,7 @@ export default function ProjectCard({
       <div className="relative overflow-hidden rounded-2xl aspect-video w-full">
         {/* Thumbnail */}
         <Image
-          src="/cardImg.webp"
+          src= {`/projects/${slug}/thumbnail.webp`}
           alt="image"
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
