@@ -223,13 +223,6 @@ public/
         └── image-4.webp
 ```
 
-Jika project membutuhkan lebih banyak gambar, lanjutkan penomorannya:
-
-```text
-image-11.webp
-image-12.webp
-image-13.webp
-```
 
 ### Konvensi Penamaan
 
@@ -285,9 +278,10 @@ fortik/
 
 ```text
 thumbnail.webp
-01.webp
-02.webp
-03.webp
+hero.webp
+image-1.webp
+image-2.webp
+image-3.webp
 ```
 
 Hindari nama seperti:
@@ -313,9 +307,11 @@ public/
 └── projects/
     └── fortik/
         ├── thumbnail.webp
-        ├── 01.webp
-        ├── 02.webp
-        └── 03.webp
+        ├── hero.webp
+        ├── image-1.webp
+        ├── image-2.webp
+        ├── image-3.webp
+        └── image-4.webp
 ```
 
 File `fortik.mdx` kemudian berisi frontmatter dan konten project sesuai schema yang telah ditentukan.
