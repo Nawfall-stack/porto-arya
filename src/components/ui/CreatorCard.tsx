@@ -1,30 +1,26 @@
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { Globe } from 'lucide-react';
-import {SiGithub, SiYoutube, SiInstagram} from '@icons-pack/react-simple-icons';
+import { SiGithub, SiInstagram } from '@icons-pack/react-simple-icons';
 
-interface SocialLink {
-  icon: React.ReactNode;
-  href: string;
-  label: string;
+interface CreatorSocials {
+  github?: string;
+  instagram?: string;
+  website?: string;
 }
 
 interface CreatorCardProps {
   name: string;
   role: string;
   image: string;
-  socials?: SocialLink[];
+  socials?: CreatorSocials;
   className?: string;
 }
 
 // ── Social Icons ──────────────────────────────────────────────────
-const GithubIcon = () => (
-  <SiGithub className='lg:w-12 lg:h-12 md:w-6 w-8 h-8'/>
-);
+const GithubIcon = () => <SiGithub className="lg:w-12 lg:h-12 md:w-6 w-8 h-8" />;
 
-const InstagramIcon = () => (
-  <SiInstagram className='lg:w-12 lg:h-12 md:w-6  w-8 h-8'/>
-);
+const InstagramIcon = () => <SiInstagram className="lg:w-12 lg:h-12 md:w-6  w-8 h-8" />;
 
 // const LinkedinIcon = () => (
 //   <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
@@ -32,55 +28,45 @@ const InstagramIcon = () => (
 //   </svg>
 // );
 
-const GlobeIcon = () => (
-  <Globe className='lg:w-12 lg:h-12 md:w-6 w-8 h-8'/>
-);
+const GlobeIcon = () => <Globe className="lg:w-12 lg:h-12 md:w-6 w-8 h-8" />;
 
 // ── Default socials ───────────────────────────────────────────────
-const defaultSocials: SocialLink[] = [
-  { icon: <GithubIcon />,    href: '#', label: 'GitHub' },
-  { icon: <InstagramIcon />, href: '#', label: 'Instagram' },
-  // { icon: <LinkedinIcon />,  href: '#', label: 'LinkedIn' },
-  { icon: <GlobeIcon />,     href: '#', label: 'Website' },
-];
 
 // ── Component ─────────────────────────────────────────────────────
-export default function CreatorCard({
-  name,
-  role,
-  image,
-  socials = defaultSocials,
-  className,
-}: CreatorCardProps) {
+export default function CreatorCard({ name, role, image, socials, className }: CreatorCardProps) {
+  const socialItems = [
+    {
+      href: socials?.github,
+      icon: <GithubIcon />,
+      label: 'GitHub',
+    },
+    {
+      href: socials?.instagram,
+      icon: <InstagramIcon />,
+      label: 'Instagram',
+    },
+    {
+      href: socials?.website,
+      icon: <GlobeIcon />,
+      label: 'Website',
+    },
+  ].filter((social) => social.href);
   return (
-    <div
-      className={cn(
-        'group relative overflow-hidden rounded-[28px] bg-neutral-900',
-        'w-full aspect-3/4',
-        'shadow-2xl shadow-black/40',
-        className
-      )}
-    >
+    <div className={cn('group relative overflow-hidden rounded-[28px] bg-neutral-900', 'w-full aspect-3/4', 'shadow-2xl shadow-black/40', className)}>
       {/* ── Foto background ── */}
-      <Image
-        src={image}
-        alt={name}
-        fill
-        className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-        sizes="240px"
-      />
+      <Image src={image} alt={name} fill className="object-cover object-top transition-transform duration-500 group-hover:scale-105" sizes="240px" preload={true} />
 
       {/* ── Gradient overlay ── */}
       <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/5 to-black/20" />
 
       {/* ── Top-left: Logo AT. ── */}
       <div className="absolute top-6 left-6 z-10">
-        <Image src="/AT-w.webp" alt="logo AT" height={1000} width={1000} loading='eager' className='w-16 md:w-12 lg:w-16' />
+        <Image src="/AT-w.webp" alt="logo AT" height={1000} width={1000} loading="eager" className="w-16 md:w-12 lg:w-16" />
       </div>
 
       {/* ── Top-right: Social icons ── */}
       <div className="absolute top-6 right-4 md:right-0 lg:right-6 z-10 flex flex-col gap-6 md:gap-3 lg:gap-6">
-        {socials.map((social) => (
+        {socialItems.map((social) => (
           <a
             key={social.label}
             href={social.href}
@@ -102,12 +88,8 @@ export default function CreatorCard({
 
       {/* ── Bottom: Role & Name ── */}
       <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
-        <p className="text-white/55 text-xl md:text-sm lg:text-xl font-medium mb-0.5 tracking-wide uppercase">
-          {role}
-        </p>
-        <h3 className="text-white font-semibold text-3xl md:text-[24px] lg:text-3xl leading-tight tracking-tight">
-          {name}
-        </h3>
+        <p className="text-white/55 text-xl md:text-sm lg:text-xl font-medium mb-0.5 tracking-wide uppercase">{role}</p>
+        <h3 className="text-white font-semibold text-3xl md:text-[24px] lg:text-3xl leading-tight tracking-tight">{name}</h3>
       </div>
     </div>
   );
