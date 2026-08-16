@@ -28,7 +28,7 @@ export default function CreatorsPage() {
             socials={{
               github: 'https://github.com/farhansyflu',
               instagram: 'https://www.instagram.com/farhansyflu_/',
-              website: '',
+              website: 'https://farhansyflu.github.io/Portofolio/',
             }}
           />
           <CreatorCard
