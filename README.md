@@ -1,36 +1,184 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Contact Form — Google Apps Script
 
-## Getting Started
+Dokumentasi setup Google Apps Script sebagai endpoint contact form dan konfigurasi environment variable pada hosting.
 
-First, run the development server:
+## 1. Buat Google Spreadsheet
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Buat Google Spreadsheet untuk menyimpan pesan contact form.
+
+Gunakan header:
+
+| Timestamp | Name | Email | Phone | Message |
+| --------- | ---- | ----- | ----- | ------- |
+
+Catat nama tab spreadsheet, misalnya:
+
+```text
+Sheet1
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 2. Buat Google Apps Script
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Pada spreadsheet, buka:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Extensions → Apps Script**
 
-## Learn More
+Hapus kode bawaan, kemudian masukkan:
 
-To learn more about Next.js, take a look at the following resources:
+```javascript
+const SHEET_NAME = "Sheet1";
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+function doPost(e) {
+  try {
+    const data = JSON.parse(e.postData.contents);
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    const name = String(data.name || "").trim();
+    const email = String(data.email || "").trim();
+    const phone = String(data.phone || "").trim();
+    const message = String(data.message || "").trim();
 
-## Deploy on Vercel
+    if (!name || !email || !phone || !message) {
+      return jsonResponse({
+        success: false,
+        error: "Semua field wajib diisi.",
+      });
+    }
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    if (name.length > 100) {
+      return jsonResponse({
+        success: false,
+        error: "Nama terlalu panjang.",
+      });
+    }
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    if (email.length > 200) {
+      return jsonResponse({
+        success: false,
+        error: "Email terlalu panjang.",
+      });
+    }
+
+    if (phone.length > 30) {
+      return jsonResponse({
+        success: false,
+        error: "Nomor telepon terlalu panjang.",
+      });
+    }
+
+    if (message.length > 5000) {
+      return jsonResponse({
+        success: false,
+        error: "Pesan terlalu panjang.",
+      });
+    }
+
+    const sheet = SpreadsheetApp
+      .getActiveSpreadsheet()
+      .getSheetByName(SHEET_NAME);
+
+    if (!sheet) {
+      return jsonResponse({
+        success: false,
+        error: "Sheet tidak ditemukan.",
+      });
+    }
+
+    sheet.appendRow([
+      new Date(),
+      name,
+      email,
+      phone,
+      message,
+    ]);
+
+    return jsonResponse({
+      success: true,
+    });
+
+  } catch (error) {
+    console.error(error);
+
+    return jsonResponse({
+      success: false,
+      error: "Gagal menyimpan pesan.",
+    });
+  }
+}
+
+function jsonResponse(data) {
+  return ContentService
+    .createTextOutput(JSON.stringify(data))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+```
+
+Jika nama tab bukan `Sheet1`, ubah:
+
+```javascript
+const SHEET_NAME = "Sheet1";
+```
+
+sesuai nama tab spreadsheet.
+
+## 3. Deploy Google Apps Script
+
+Di Apps Script pilih:
+
+**Deploy → New deployment**
+
+Pilih:
+
+```text
+Type: Web app
+Execute as: Me
+Who has access: Anyone
+```
+
+Kemudian lakukan **Authorize access** jika diminta.
+
+Setelah berhasil deploy, salin **Web App URL** yang berakhiran:
+
+```text
+/exec
+```
+
+Contoh:
+
+```text
+https://script.google.com/macros/s/XXXXXXXXXXXX/exec
+```
+
+> Spreadsheet tidak perlu dibuat public. `Anyone` hanya diperlukan agar contact form dapat mengirim request ke Web App.
+
+## 4. Environment Variable Hosting
+
+Simpan Web App URL sebagai environment variable pada platform hosting.
+
+### Vercel
+
+Buka:
+
+**Project → Settings → Environment Variables**
+
+Tambahkan:
+
+```env
+NEXT_PUBLIC_GOOGLE_SCRIPT_URL=https://script.google.com/macros/s/XXXXXXXXXXXX/exec
+```
+
+Aktifkan untuk environment yang diperlukan, terutama **Production**.
+
+Setelah menambahkan atau mengubah variable, lakukan **redeploy**.
+
+## Checklist
+
+* [ ] Buat Google Spreadsheet.
+* [ ] Buat header `Timestamp`, `Name`, `Email`, `Phone`, `Message`.
+* [ ] Buat Apps Script dari **Extensions → Apps Script**.
+* [ ] Sesuaikan `SHEET_NAME` jika diperlukan.
+* [ ] Deploy sebagai **Web app**.
+* [ ] Set **Execute as: Me**.
+* [ ] Set **Who has access: Anyone**.
+* [ ] Salin Web App URL `/exec`.
+* [ ] Tambahkan URL sebagai `NEXT_PUBLIC_GOOGLE_SCRIPT_URL` di hosting.
+* [ ] Redeploy aplikasi.
