@@ -50,7 +50,7 @@ export default function ProjectInfoModal({ project }: Props) {
                     {project.services.map((service) => (
                       <li
                         key={service}
-                        className="rounded-lg bg-background p-2 text-xs md:text-sm"
+                        className="rounded-lg bg-neutral-900 p-2 text-xs md:text-sm"
                       >
                         {service}
                       </li>
@@ -85,7 +85,7 @@ export default function ProjectInfoModal({ project }: Props) {
                   href={project.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-xl bg-background p-2 text-center text-lg text-foreground transition hover:bg-background/80"
+                  className="rounded-xl bg-neutral-900 p-2 text-center text-lg text-foreground transition hover:bg-neutral-900/80"
                 >
                   Visit Website
                 </a>
@@ -93,7 +93,7 @@ export default function ProjectInfoModal({ project }: Props) {
 
               <button
                 onClick={closeModal}
-                className="rounded-xl bg-background p-2 text-lg text-foreground transition hover:bg-background/80"
+                className="rounded-xl bg-neutral-900 p-2 text-lg text-foreground transition hover:bg-neutral-900/80"
               >
                 Close Info
               </button>

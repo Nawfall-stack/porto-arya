@@ -5,7 +5,7 @@ export default async function ProjectsPage() {
   const projects = await getAllProjects();
 
   return (
-    <main className="min-h-screen py-28">
+    <>
       <div className="container mx-auto px-4 flex flex-col gap-12">
         {/* Page Header */}
         <div className="mb-16 text-center">
@@ -20,7 +20,7 @@ export default async function ProjectsPage() {
 
       <div className="grid gap-6 px-4">
         {projects.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {projects.map((project) => (
               <ProjectCard
                 key={project.slug}
@@ -36,6 +36,6 @@ export default async function ProjectsPage() {
           </div>
         )}
       </div>
-    </main>
+    </>
   );
 }
