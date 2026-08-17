@@ -93,7 +93,7 @@ const Contact = () => {
     }
   };
   return (
-    <div className="min-h-screen py-28">
+    <>
       <div className="container mx-auto px-4">
         {/* Page Header */}
         <div className="mb-16 text-center">
@@ -101,9 +101,9 @@ const Contact = () => {
           <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-4">CONTACT</h1>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 place-items-center gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 place-items-center gap-8">
           {/* card 1 */}
-          <form onSubmit={handleSubmit} className={cn('group relative overflow-hidden rounded-[28px] bg-neutral-900 text-white', 'w-full p-6', 'shadow-2xl shadow-black/40')}>
+          <form onSubmit={handleSubmit} className={cn('group relative overflow-hidden rounded-[28px] bg-neutral-900 text-white', 'w-full p-6')}>
             <div className="flex flex-col mb-8 gap-2">
               <h2 className="text-3xl font-semibold tracking-tight">Get In Touch</h2>
               <p className="font-normal leading-tight">Send message to us by filling these fields</p>
@@ -137,7 +137,7 @@ const Contact = () => {
           </form>
 
           {/* card 2 */}
-          <div className={cn('group relative overflow-hidden rounded-[28px] bg-neutral-900 text-white', 'w-full p-6', 'shadow-2xl shadow-black/40 md:h-full')}>
+          <div className={cn('group relative overflow-hidden rounded-[28px] bg-neutral-900 text-white', 'w-full p-6', ' md:h-full')}>
             <div className="flex flex-col mb-8 gap-2">
               <h2 className="text-3xl font-semibold tracking-tight">Via Platform</h2>
               <p className="font-normal leading-tight">Choose the platform you&apos;re most comfortable with</p>
@@ -167,7 +167,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

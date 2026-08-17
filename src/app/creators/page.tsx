@@ -2,7 +2,7 @@ import CreatorCard from '@/components/ui/CreatorCard';
 
 export default function CreatorsPage() {
   return (
-    <div className="min-h-screen py-28">
+    <>
       <div className="container mx-auto px-4">
         {/* Page Header */}
         <div className="mb-16 text-center">
@@ -43,6 +43,6 @@ export default function CreatorsPage() {
           />
         </div>
       </div>
-    </div>
+    </>
   );
 }
