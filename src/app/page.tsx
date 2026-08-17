@@ -43,10 +43,10 @@ const techStacks = ['laravel', 'supabase', 'vercel', 'nextjs', 'livewire', 'figm
 
 export default async function ProjectsPage() {
   const projects = await getAllProjects();
-  const featuredProjects = projects.slice(0, 2);
+  const featuredProjects = projects.slice(0, 3);
 
   return (
-    <main className="min-h-screen py-28">
+    <>
       <div className="container mx-auto flex flex-col gap-12 px-4">
         {/* Header */}
         <header className="flex flex-col gap-8 text-center">
@@ -66,7 +66,7 @@ export default async function ProjectsPage() {
         </header>
 
         {/* Features */}
-        <section className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {features.map((feature) => (
             <div key={feature.title} className="relative aspect-video overflow-hidden rounded-xl md:aspect-3/4">
               <Image src={feature.image} alt={feature.title} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover" preload={true} />
@@ -101,7 +101,7 @@ export default async function ProjectsPage() {
           </div>
 
           {featuredProjects.length > 0 ? (
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {featuredProjects.map((project) => (
                 <ProjectCard key={project.slug} title={project.frontmatter.title} category={project.frontmatter.category} slug={project.slug} />
               ))}
@@ -112,7 +112,21 @@ export default async function ProjectsPage() {
             </div>
           )}
         </section>
+
+        {/* CTA */}
+        <section className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between border border-muted-foreground p-8 rounded-2xl mt-4">
+          <div className="flex flex-col gap-2">
+            <h2 className="text-3xl font-medium tracking-tight">Let&apos;s build something together.</h2>
+
+            <p className="text-muted-foreground">Have an idea or project in mind? We&apos;d love to hear about it.</p>
+          </div>
+
+          <Link href="/contact" className="group min-h-11 inline-flex items-center gap-2 rounded-md bg-foreground text-base font-medium text-background transition-colors hover:opacity-90">
+            Get in touch
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </section>
       </div>
-    </main>
+    </>
   );
 }
