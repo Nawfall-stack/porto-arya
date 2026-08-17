@@ -130,7 +130,7 @@ const Contact = () => {
                 <textarea name="message" value={form.message} onChange={handleChange} rows={4} className="w-full rounded border px-3 py-2 border-accent-foreground" />
               </div>
 
-              <button type="submit" className="w-full rounded py-2 border-accent-foreground mt-8 bg-foreground text-background text-sm">
+              <button type="submit" className="w-full rounded py-2 border-accent-foreground mt-8 bg-foreground text-background text-sm cursor-pointer">
                 Send Message
               </button>
             </div>
