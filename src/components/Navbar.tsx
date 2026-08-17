@@ -44,9 +44,9 @@ export default function Navbar() {
 
             <span className="text-sm font-medium text-neutral-700">{currentPage}</span>
           </div>
-          <button onClick={() => setMenuOpen(!menuOpen)} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-neutral-100 transition-colors cursor-pointer" aria-label="Toggle menu">
+          <div className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-neutral-100 transition-colors cursor-pointer" aria-label="Toggle menu">
             {menuOpen ? <Minus /> : <Menu />}
-          </button>
+          </div>
         </div>
 
         {/* Dropdown Menu */}
