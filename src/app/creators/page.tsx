@@ -12,7 +12,7 @@ export default function CreatorsPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 place-items-center gap-4">
           <CreatorCard
-            name="M Iqbal Ramadhani"
+            name="Iqbal Ramadani"
             role="Full Stack Developer"
             image="/Iqbal.png"
             socials={{
@@ -22,7 +22,7 @@ export default function CreatorsPage() {
             }}
           />
           <CreatorCard
-            name="Farhan Syifaul U"
+            name="Farhan Syifaul Umam"
             role="Front End Developer"
             image="/Farhan.png"
             socials={{
