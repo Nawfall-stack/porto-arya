@@ -3,6 +3,7 @@
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { SiGmail, SiTelegram, SiWhatsapp } from '@icons-pack/react-simple-icons';
+import { X, Check} from 'lucide-react';
 
 interface SocialLink {
   label: string;
@@ -43,11 +44,25 @@ interface FormData {
   message: string;
 }
 
+type ToastType = 'success' | 'error';
+
+interface ToastState {
+  show: boolean;
+  type: ToastType;
+  message: string;
+}
+
 const Contact = () => {
   const [form, setForm] = useState<FormData>({
     name: '',
     email: '',
     phone: '',
+    message: '',
+  });
+
+  const [toast, setToast] = useState<ToastState>({
+    show: false,
+    type: 'success',
     message: '',
   });
 
@@ -60,17 +75,15 @@ const Contact = () => {
     }));
   };
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setIsSubmitting(true);
     try {
-   const response = await fetch(
-  process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL!,
-  {
-    method: "POST",
-    body: JSON.stringify(form),
-  },
-);
+      const response = await fetch(process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL!, {
+        method: 'POST',
+        body: JSON.stringify(form),
+      });
 
       const result = await response.json();
 
@@ -78,7 +91,11 @@ const Contact = () => {
         throw new Error(result.error);
       }
 
-      alert('Pesan berhasil dikirim!');
+      setToast({
+        show: true,
+        type: 'success',
+        message: 'Message sent successfully!',
+      });
 
       setForm({
         name: '',
@@ -86,14 +103,39 @@ const Contact = () => {
         phone: '',
         message: '',
       });
+
+      setTimeout(() => {
+        setToast((prev) => ({ ...prev, show: false }));
+      }, 3000);
     } catch (error) {
       console.error(error);
 
-      alert('Gagal mengirim pesan.');
+      setToast({
+        show: true,
+        type: 'error',
+        message: 'Failed to send message.',
+      });
+
+      setTimeout(() => {
+        setToast((prev) => ({ ...prev, show: false }));
+      }, 3000);
+    } finally {
+      setIsSubmitting(false);
     }
   };
   return (
     <>
+      {toast.show && (
+        <div className="fixed right-4 top-4 z-50 flex items-center gap-3 rounded-xl border bg-white px-4 py-3 text-neutral-900 shadow-lg">
+          <div className={cn('flex size-6 shrink-0 items-center justify-center rounded-full text-sm', toast.type === 'success' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600')}>{toast.type === 'success' ? <Check /> : <X />}</div>
+
+          <span className="text-sm font-medium">{toast.message}</span>
+
+          <button type="button" onClick={() => setToast((prev) => ({ ...prev, show: false }))} className="ml-2 text-neutral-400 hover:text-neutral-900" aria-label="Close notification">
+            <X />
+          </button>
+        </div>
+      )}
       <div className="container mx-auto px-4">
         {/* Page Header */}
         <div className="mb-16 text-center">
@@ -112,26 +154,26 @@ const Contact = () => {
             <div className="flex flex-col gap-2">
               <div className="flex flex-col">
                 <label className="mb-1 block text-sm">Full Name</label>
-                <input type="text" name="name" value={form.name} onChange={handleChange} className="w-full rounded border px-2 py-2 border-accent-foreground" />
+                <input type="text" name="name" required value={form.name} onChange={handleChange} className="w-full rounded border px-2 py-2 border-accent-foreground" />
               </div>
 
               <div className="flex flex-col ">
                 <label className="mb-1 block text-sm">Email</label>
-                <input type="email" name="email" value={form.email} onChange={handleChange} className="w-full rounded border px-3 py-2 border-accent-foreground" />
+                <input type="email" name="email" required value={form.email} onChange={handleChange} className="w-full rounded border px-3 py-2 border-accent-foreground" />
               </div>
 
               <div className="flex flex-col ">
                 <label className="mb-1 block text-sm">Phone Number</label>
-                <input type="text" name="phone" value={form.phone} onChange={handleChange} className="w-full rounded border px-3 py-2 border-accent-foreground" />
+                <input type="tel" name="phone" pattern="[0-9]*" title="Hanya masukkan angka" required value={form.phone} onChange={handleChange} className="w-full rounded border px-3 py-2 border-accent-foreground" />
               </div>
 
               <div className="flex flex-col ">
                 <label className="mb-1 block text-sm">Message</label>
-                <textarea name="message" value={form.message} onChange={handleChange} rows={4} className="w-full rounded border px-3 py-2 border-accent-foreground" />
+                <textarea name="message" required value={form.message} onChange={handleChange} rows={4} className="w-full rounded border px-3 py-2 border-accent-foreground" />
               </div>
 
-              <button type="submit" className="w-full rounded py-2 border-accent-foreground mt-8 bg-foreground text-background text-sm cursor-pointer">
-                Send Message
+              <button type="submit" disabled={isSubmitting} className="w-full rounded py-2 mt-8 bg-foreground text-background text-sm cursor-pointer disabled:cursor-not-allowed disabled:opacity-50">
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
             </div>
           </form>
