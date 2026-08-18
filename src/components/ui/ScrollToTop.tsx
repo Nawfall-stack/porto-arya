@@ -32,6 +32,7 @@ export default function ScrollToTop() {
         aria-label="Scroll to top"
         className={`
           pointer-events-auto
+          cursor-pointer
           flex
           h-12
           w-12

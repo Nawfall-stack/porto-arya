@@ -35,17 +35,18 @@ export default function Navbar() {
   const currentPage = menuItems.find((item) => pathname === item.href || pathname.startsWith(`${item.href}/`))?.label || 'Homepage';
 
   return (
-    <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-sm">
+    <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-sm cursor-pointer" onClick={() => setMenuOpen(!menuOpen)}>
       <div className="bg-white shadow-sm rounded-xl border border-neutral-300 overflow-visible">
         {/* Navbar Header */}
         <div className="flex items-center justify-between px-3 py-2">
-          <Link href={'/'} className="flex items-center gap-2">
-            <Image src="/AT-b.webp" alt="AT-navbar-logo" width={100} height={200} className="w-8" />
+          <div className="flex gap-4 items-center">
+            <Image src="/AT-b.webp" alt="AT-navbar-logo" width={200} height={200} className="w-8 h-fit" />
+
             <span className="text-sm font-medium text-neutral-700">{currentPage}</span>
-          </Link>
-          <button onClick={() => setMenuOpen(!menuOpen)} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-neutral-100 transition-colors" aria-label="Toggle menu">
+          </div>
+          <div className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-neutral-100 transition-colors cursor-pointer" aria-label="Toggle menu">
             {menuOpen ? <Minus /> : <Menu />}
-          </button>
+          </div>
         </div>
 
         {/* Dropdown Menu */}
