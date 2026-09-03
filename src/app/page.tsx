@@ -121,7 +121,7 @@ export default async function ProjectsPage() {
             <p className="text-muted-foreground">Have an idea or project in mind? We&apos;d love to hear about it.</p>
           </div>
 
-          <Link href="/contact" className="group min-h-11 inline-flex items-center gap-2 rounded-md bg-foreground text-base font-medium text-background transition-colors hover:opacity-90">
+          <Link href="/contact" className="group min-h-11 inline-flex items-center gap-2 rounded-md text-base font-medium text-background transition-colors hover:opacity-90">
             Get in touch
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
